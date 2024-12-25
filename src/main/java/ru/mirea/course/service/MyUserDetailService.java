@@ -27,7 +27,6 @@ public class MyUserDetailService implements org.springframework.security.core.us
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         logger.info("Trying to load user by username: {}", username);
 
-        // URL для запроса к Auth-сервису
         String authServiceUrl = "http://localhost:8081/auth/getUserDetails?username=" + username;
 
         try {
@@ -39,8 +38,8 @@ public class MyUserDetailService implements org.springframework.security.core.us
 
                 return User.builder()
                         .username(userDTO.getEmail())
-                        .password(userDTO.getPassword()) // Убедитесь, что пароль зашифрован
-                        .roles(userDTO.getRole())  // Роли
+                        .password(userDTO.getPassword())
+                        .roles(userDTO.getRole())
                         .build();
             } else {
                 logger.error("User not found with email: {}", username);

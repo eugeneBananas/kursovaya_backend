@@ -8,8 +8,6 @@ public class TestRequest {
     private Long courseId;
     private List<QuestionRequest> questions;
 
-    // Геттеры и сеттеры
-
     public String getTitle() {
         return title;
     }
@@ -37,9 +35,6 @@ public class TestRequest {
     public static class QuestionRequest {
         private String content;
         private List<OptionRequest> options;
-
-        // Геттеры и сеттеры
-
         public String getContent() {
             return content;
         }

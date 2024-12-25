@@ -4,12 +4,11 @@ import java.util.List;
 
 public class QuestionRequest {
 
-    private String content; // Текст вопроса
-    private List<String> options; // Варианты ответа
-    private List<Boolean> correctOptions; // Правильные варианты ответа (true/false для каждого варианта)
-    private Long testId; // ID теста, к которому принадлежит вопрос
+    private String content;
+    private List<String> options;
+    private List<Boolean> correctOptions;
+    private Long testId;
 
-    // Getters и Setters
     public String getContent() {
         return content;
     }

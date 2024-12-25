@@ -32,7 +32,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        // Логируем URI запроса
         logger.info("Incoming request URI: {}", request.getRequestURI());
 
         if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
@@ -41,14 +40,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
-        // Логируем все заголовки
         Enumeration<String> headerNames = request.getHeaderNames();
         while (headerNames.hasMoreElements()) {
             String headerName = headerNames.nextElement();
             logger.info("Header {}: {}", headerName, request.getHeader(headerName));
         }
 
-        // Проверка наличия заголовка Authorization
         String token = request.getHeader("Authorization");
 
         if (token != null) {

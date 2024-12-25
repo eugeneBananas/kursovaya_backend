@@ -25,38 +25,33 @@ public class TestService {
         test.setTitle(testRequest.getTitle());
         test.setCourseId(testRequest.getCourseId());
 
-        // Список вопросов
         List<Question> questions = new ArrayList<>();
 
-        // Проходим по каждому вопросу в запросе
         for (TestRequest.QuestionRequest q : testRequest.getQuestions()) {
             Question question = new Question();
-            question.setContent(q.getContent());  // Устанавливаем текст вопроса
+            question.setContent(q.getContent());
 
-            // Преобразуем список вариантов ответов
             List<String> options = new ArrayList<>();
             for (TestRequest.OptionRequest o : q.getOptions()) {
                 options.add(o.getContent());
             }
-            question.setOptions(options);  // Устанавливаем варианты ответа
+            question.setOptions(options);
 
             // Преобразуем правильные варианты
             List<Boolean> correctOptions = new ArrayList<>();
             for (TestRequest.OptionRequest o : q.getOptions()) {
                 correctOptions.add(o.isCorrect());
             }
-            question.setCorrectOptions(correctOptions);  // Устанавливаем правильные ответы
+            question.setCorrectOptions(correctOptions);
 
-            question.setTest(test);  // Устанавливаем тест для каждого вопроса
-            questions.add(question);  // Добавляем вопрос в список
+            question.setTest(test);
+            questions.add(question);
         }
 
-        test.setQuestions(questions);  // Устанавливаем все вопросы в тест
+        test.setQuestions(questions);
 
-        // Сохраняем тест в базу данных
         test = testRepository.save(test);
 
-        // Преобразуем Test в TestResponse перед возвращением
         return new TestResponse(test.getId(), test.getTitle(), test.getCourseId(), test.getQuestions());
     }
 

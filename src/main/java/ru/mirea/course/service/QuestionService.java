@@ -15,23 +15,21 @@ public class QuestionService {
     @Autowired
     private QuestionRepository questionRepository;
 
-    // Добавление вопроса с вариантами ответов и правильными вариантами
     public Question addQuestion(QuestionRequest request) {
         Question question = new Question();
-        question.setContent(request.getContent()); // Устанавливаем текст вопроса
-        question.setOptions(request.getOptions()); // Устанавливаем варианты ответа
-        question.setCorrectOptions(request.getCorrectOptions()); // Устанавливаем правильные ответы
+        question.setContent(request.getContent());
+        question.setOptions(request.getOptions());
+        question.setCorrectOptions(request.getCorrectOptions());
 
-        // Связь с тестом
         Test test = new Test();
         test.setId(request.getTestId());
         question.setTest(test);
 
-        return questionRepository.save(question); // Сохраняем вопрос
+        return questionRepository.save(question);
     }
 
-    // Получение вопросов по ID теста
+    // плучение вопросов по ID теста
     public List<Question> getQuestionsByTest(Long testId) {
-        return questionRepository.findByTestId(testId); // Получаем все вопросы для указанного теста
+        return questionRepository.findByTestId(testId);
     }
 }

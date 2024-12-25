@@ -10,7 +10,6 @@ public class TestResponse {
     private Long courseId;
     private List<Question> questions;
 
-    // Конструктор
     public TestResponse(Long id, String title, Long courseId, List<Question> questions) {
         this.id = id;
         this.title = title;
@@ -18,7 +17,6 @@ public class TestResponse {
         this.questions = questions;
     }
 
-    // Геттеры и сеттеры
     public Long getId() {
         return id;
     }

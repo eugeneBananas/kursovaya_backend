@@ -23,20 +23,15 @@ public class JwtUtil {
     @Autowired
     private RestTemplate restTemplate;
 
-    // URL сервиса аутентификации для проверки токена
+
     private final String AUTH_SERVICE_URL = "http://localhost:8081/auth/validateToken";
 
-    /**
-     * Проверяет токен, отправляя запрос в Auth-сервис.
-     */
     public boolean validateToken(String token) {
         try {
             logger.info("Validating token with Auth service: {}", token);
 
-            // Создаем тело запроса с токеном
             HttpEntity<String> request = new HttpEntity<>(token);
 
-            // Отправляем POST-запрос с токеном в теле
             ResponseEntity<Void> response = restTemplate.exchange(
                     AUTH_SERVICE_URL, HttpMethod.POST, request, Void.class);
 
@@ -49,7 +44,6 @@ public class JwtUtil {
     }
 
 
-    // Этот метод будет запрашивать данные о пользователе через Auth-сервис.
     private UserDetails loadUserDetailsFromAuthService(String username) {
         try {
             String userInfoUrl = "http://localhost:8081/auth/getUserDetails?username=" + username;
@@ -72,10 +66,6 @@ public class JwtUtil {
     }
 
 
-
-    /**
-     * Извлекает имя пользователя (subject) из токена, отправляя запрос в Auth-сервис.
-     */
     public String extractUsernameRemote(String token) {
         try {
             logger.info("Extracting username from token: {}", token);
@@ -102,7 +92,7 @@ public class JwtUtil {
                     .getSubject();
         } catch (Exception e) {
             logger.error("Error extracting username from token: {}", e.getMessage());
-            throw e;  // Пробрасываем исключение дальше
+            throw e;
         }
     }
 }

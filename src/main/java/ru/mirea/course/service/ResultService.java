@@ -45,34 +45,28 @@ public class ResultService {
     }
 
     public ResultResponse submitTest(Long testId, List<Integer> answerIndices) {
-        // Получаем вопросы для теста
         List<Question> questions = questionRepository.findByTestId(testId);
 
         int totalQuestions = questions.size();
         int correctAnswers = 0;
 
-        // Проходим по всем вопросам и проверяем правильность ответов
         for (Question question : questions) {
-            // Получаем правильные ответы для текущего вопроса
             List<Boolean> correctOptions = question.getCorrectOptions();
 
-            // Проверяем, есть ли в answerIndices правильный ответ
             for (Integer index : answerIndices) {
                 if (index >= 0 && index < correctOptions.size() && correctOptions.get(index)) {
                     correctAnswers++;
-                    break;  // Если хотя бы один правильный ответ найден, переходим к следующему вопросу
+                    break;
                 }
             }
         }
 
-        // Вычисляем баллы
         double score = (double) correctAnswers / totalQuestions * 100;
-        boolean passed = score >= 50;  // Пример условия для прохождения
+        boolean passed = score >= 50;
 
-        // Сохраняем результат
         Result result = new Result();
-        result.setStudentId(getCurrentStudentId());  // Предположим, что мы получаем текущий ID студента
-        result.setTest(questions.get(0).getTest());  // Связываем результат с тестом
+        result.setStudentId(getCurrentStudentId());
+        result.setTest(questions.get(0).getTest());
         result.setScore(score);
         result.setPassed(passed);
 
@@ -82,17 +76,16 @@ public class ResultService {
     }
 
     private Long getCurrentStudentId() {
-        // Логика для получения ID текущего студента из контекста безопасности
-        return 1L;  // Примерный ID студента
+        return 1L;
     }
 
     public List<ResultResponse> getAllResults() {
-        List<Result> results = resultRepository.findAll();  // Получаем все результаты из базы данных
+        List<Result> results = resultRepository.findAll();
 
         return results.stream()
                 .map(result -> new ResultResponse(
                         result.getStudentId(),
-                        result.getTest() != null ? result.getTest().getId() : null,  // Проверка на null, если Test отсутствует
+                        result.getTest() != null ? result.getTest().getId() : null,
                         result.getScore(),
                         result.isPassed()))
                 .collect(Collectors.toList());
@@ -103,7 +96,7 @@ public class ResultService {
 
         return new ResultResponse(
                 savedResult.getStudentId(),
-                savedResult.getTest().getId(),  // Получаем ID теста через объект Test
+                savedResult.getTest().getId(),
                 savedResult.getScore(),
                 savedResult.isPassed());
     }

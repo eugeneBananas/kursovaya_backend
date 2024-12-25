@@ -16,12 +16,12 @@ public class Test {
     private String title;
 
     @Column(name = "course_id")
-    private Long courseId; // ID курса из Course-сервиса
+    private Long courseId;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "test_id") // Это связывает вопросы с тестом
-    @JsonManagedReference  // Указывает, что это сторона, которая управляет сериализацией
-    private List<Question> questions; // Вопросы, которые будут частью теста
+    @JoinColumn(name = "test_id")
+    @JsonManagedReference
+    private List<Question> questions;
 
     public Long getId() {
         return id;

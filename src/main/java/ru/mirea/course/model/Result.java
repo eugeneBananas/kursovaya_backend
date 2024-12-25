@@ -10,15 +10,15 @@ public class Result {
     private Long id;
 
     @Column(name = "student_id")
-    private Long studentId; // ID студента из Auth-сервиса
+    private Long studentId;
 
     @ManyToOne
     @JoinColumn(name = "test_id")
     private Test test;
 
-    private double score; // Баллы за тест
+    private double score;
 
-    private boolean passed; // Пройден ли тест успешно
+    private boolean passed;
 
     public Long getId() {
         return id;

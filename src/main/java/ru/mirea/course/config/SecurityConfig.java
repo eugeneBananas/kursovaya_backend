@@ -24,26 +24,26 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable()) // Отключаем CSRF защиту (подходит для API)
-                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Включаем CORS
+        http.csrf(csrf -> csrf.disable())
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Разрешаем OPTIONS запросы для всех
-                        .anyRequest().authenticated() // Все остальные запросы требуют аутентификации
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .anyRequest().authenticated()
                 )
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // Добавляем JWT фильтр перед стандартным фильтром аутентификации
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-        return http.build(); // Метод для создания конфигурации
+        return http.build();
     }
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("http://localhost:5173"); // Разрешаем доступ с фронтенда
-        configuration.addAllowedMethod("*"); // Разрешаем все HTTP методы (GET, POST, PUT, DELETE и т.д.)
-        configuration.addAllowedHeader("*"); // Разрешаем все заголовки
-        configuration.setAllowCredentials(true); // Разрешаем отправку куки и авторизационных заголовков
+        configuration.addAllowedOrigin("http://localhost:5173");
+        configuration.addAllowedMethod("*");
+        configuration.addAllowedHeader("*");
+        configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration); // Применяем конфигурацию ко всем путям
+        source.registerCorsConfiguration("/**", configuration);
         return source;
     }
 }

@@ -12,18 +12,18 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String content; // Текст вопроса
+    private String content;
 
     @ElementCollection
-    private List<String> options; // Варианты ответа
+    private List<String> options;
 
     @ElementCollection
-    private List<Boolean> correctOptions; // Правильные ответы (true/false для каждого варианта)
+    private List<Boolean> correctOptions;
 
     @ManyToOne
     @JoinColumn(name = "test_id")
     @JsonBackReference
-    private Test test; // Связь с тестом
+    private Test test;
 
     // Геттеры и сеттеры
     public Long getId() {

@@ -34,7 +34,7 @@ public class ResultController {
         return ResponseEntity.ok(results);
     }
 
-    @GetMapping("/all")  // Новый метод для получения всех результатов
+    @GetMapping("/all")
     public ResponseEntity<List<ResultResponse>> getAllResults() {
         List<ResultResponse> results = resultService.getAllResults();
         return ResponseEntity.ok(results);
